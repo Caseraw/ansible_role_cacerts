@@ -29,15 +29,6 @@ role_cacerts_required_packages: '{{ role_cacerts_required_package_list[ansible_d
 #     validate_certs: False
 #     state: absent
 
-role_cacerts_cert_list:
-  - src: katello1-server-ca.crt
-    dest: /etc/pki/ca-trust/source/anchors/katello1-server-ca.crt
-    type: file
-    state: present
-  - src: https://satellite.lab.example.com/pub/katello-server-ca.crt
-    dest: /etc/pki/ca-trust/source/anchors/katello-server-ca.crt
-    type: url
-    validate_certs: False
-    state: present
+role_cacerts_cert_list: []
 
 ...
