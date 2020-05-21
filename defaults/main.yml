@@ -1,0 +1,43 @@
+---
+### Required packages
+role_cacerts_required_package_list:
+  RedHat_7:
+    - ca-certificates
+  RedHat_8:
+    - ca-certificates
+
+role_cacerts_required_packages: '{{ role_cacerts_required_package_list[ansible_distribution + "_" + ansible_distribution_major_version] | default([]) }}'
+
+### Certifcate files
+## Type options:
+## - file: Copy a file to the target
+## - url: Download a file from url
+##
+## State options:
+## - present: Ensure certificate is deployed
+## - absent: Ensure certificate is removed
+##
+## Example:
+# role_cacerts_cert_list:
+#   - src: 'some-ca-file.pem'
+#     dest: '/etc/pki/ca-trust/source/anchors/some-ca-file.pem'
+#     type: file
+#     state: pesent
+#   - src: 'https://certs.example.com/some-ca-cert-file.pem'
+#     dest: '/etc/pki/ca-trust/source/anchors/some-ca-cert-file.pem'
+#     type: url
+#     validate_certs: False
+#     state: absent
+
+role_cacerts_cert_list:
+  - src: katello1-server-ca.crt
+    dest: /etc/pki/ca-trust/source/anchors/katello1-server-ca.crt
+    type: file
+    state: present
+  - src: https://satellite.lab.example.com/pub/katello-server-ca.crt
+    dest: /etc/pki/ca-trust/source/anchors/katello-server-ca.crt
+    type: url
+    validate_certs: False
+    state: present
+
+...

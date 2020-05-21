@@ -1,0 +1,44 @@
+---
+- name: Ensure required packages are installed
+  package:
+    name: '{{ role_cacerts_required_packages }}'
+    state: present
+
+- name: Ensure CA certificate state
+  block:
+    - name: Copy certificate files
+      copy:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+        owner: root
+        group: root
+        mode: '0644'
+      loop: '{{ role_cacerts_cert_list }}'
+      when:
+        - item.type == 'file'
+        - item.state == 'present'
+      notify: update_ca_trust
+
+    - name: Download certificate files
+      get_url:
+        url: '{{ item.src }}'
+        validate_certs: '{{ item.validate_certs | default(False) }}'
+        dest: '{{ item.dest }}'
+        owner: root
+        group: root
+        mode: '0644'
+      loop: '{{ role_cacerts_cert_list }}'
+      when:
+        - item.type == 'url'
+        - item.state == 'present'
+      notify: update_ca_trust
+  always:
+    - name: Cleanup certificate files
+      file:
+        state: absent
+        path: '{{ item.dest }}'
+      loop: '{{ role_cacerts_cert_list }}'
+      when:
+        - item.state == 'absent'
+
+...

@@ -1,0 +1,6 @@
+---
+- name: Update CA trust
+  command: /usr/bin/update-ca-trust
+  listen: update_ca_trust
+
+...

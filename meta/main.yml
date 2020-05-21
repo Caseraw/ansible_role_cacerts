@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  author: Kasra Amirsarvari
+  description: Managing CA trust store.
+  company: N/A
+  license: license (BSD, MIT)
+  min_ansible_version: 2.5
+  platforms:
+    - name: Fedora
+      versions:
+        - 31
+        - 32
+    - name: EL
+      versions:
+        - 7
+        - 8
+  galaxy_tags:
+    - manage
+    - CA
+    - Certificate
+    - Authority
+    - trust
+    - distrust
+
+dependencies: []
+
+...

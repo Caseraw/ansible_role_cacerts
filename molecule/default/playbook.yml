@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  become: True
+  gather_facts: True
+  tasks:
+    - import_role:
+        name: ansible_role_cacerts
+      vars:
+        role_cacerts_cert_list:
+          - src: 'example.crt'
+            dest: '/etc/pki/ca-trust/source/anchors/example.crt'
+            type: file
+            state: pesent
+
+...
