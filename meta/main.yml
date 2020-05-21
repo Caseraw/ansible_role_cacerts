@@ -16,9 +16,9 @@ galaxy_info:
         - 8
   galaxy_tags:
     - manage
-    - CA
-    - Certificate
-    - Authority
+    - ca
+    - certificate
+    - authority
     - trust
     - distrust
 
